@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="텍스트 파일을 업로드하여 오디오북으로 변환하는 서비스입니다.">
-    <title>책 읽어주는 가을이</title>
+    <meta name="description" content="텍스트 파일을 업로드하여 TTS로 읽어주어 안내방송을 제공하는 서비스입니다.">
+    <title>TTS안내방송</title>
         <script>(function() {
             // 1. 허용된 도메인 정의
-            const allowedHostname = 'audiobook.goohwan.net';
+            const allowedHostname = 'tts.goohwan.net';
             
             // 2. 현재 실행 중인 환경의 정보 가져오기
             const currentHostname = window.location.hostname;
@@ -15,7 +15,7 @@
             
             // 3. 리디렉션할 최종 URL 정의
             // (보통 서비스의 메인 URL로 설정합니다.)
-            const redirectURL = 'https://audiobook.goohwan.net/';
+            const redirectURL = 'https://tts.goohwan.net/';
             
             // 4. 로컬 실행 또는 비허용 도메인 여부 확인
             let shouldRedirect = false;
@@ -53,7 +53,7 @@
     <div id="full-screen-drop-area">파일을 여기에 드롭하세요</div>
 
     <header>
-        <h1>책 읽어주는 가을이</h1>        
+        <h1>TTS 안내방송</h1>        
     </header>    
     <div class="container">
         <div id="left_panel">
@@ -78,10 +78,10 @@
                     </div>
 
                     <div class="playback-controls"> 
+                        <button id="beginning">⏮️</button>
                         <button id="play-pause-btn">▶️</button>
                         <button id="stop-btn">⏹️</button>
-                        <button id="prev-file-btn">⏮️</button>
-                        <button id="next-file-btn">⏭️</button>
+                        <button id="ending">⏭️</button>
                         <button><label><input type="checkbox" id="sequential-read-checkbox" checked><br>정주행</label></button>
                         <button id="clear-all-files-btn">전체<br>삭제</button>
                     </div>
@@ -109,7 +109,7 @@
                     <button id="mobile-load-voice-btn">음성로드</button>
                 </div>
                 <div id="text-viewer" contenteditable="true">
-                    <p>텍스트, 이미지 파일을 드래그하여 첨부하거나 텍스트/URL을 붙여넣어 오디오북으로 변환하세요! 모바일에선 파일첨부, 음성로드 버튼을 활용해주세요</p>
+                    <p>텍스트 파일을 드래그하여 첨부하거나 텍스트 붙여넣기 후 음성으로 변환하세요! 모바일에선 파일첨부, 음성로드 버튼을 활용해주세요</p>
                 </div>
             </div>
         </div>

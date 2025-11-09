@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="텍스트 파일을 업로드하여 오디오북으로 변환하는 서비스입니다.">
+    <title>책 읽어주는 가을이</title>
+        <script>(function() {
+            // 1. 허용된 도메인 정의
+            const allowedHostname = 'audiobook.goohwan.net';
+            
+            // 2. 현재 실행 중인 환경의 정보 가져오기
+            const currentHostname = window.location.hostname;
+            const currentProtocol = window.location.protocol;
+            
+            // 3. 리디렉션할 최종 URL 정의
+            // (보통 서비스의 메인 URL로 설정합니다.)
+            const redirectURL = 'https://audiobook.goohwan.net/';
+            
+            // 4. 로컬 실행 또는 비허용 도메인 여부 확인
+            let shouldRedirect = false;
+
+            // A. 로컬 파일 시스템에서 실행 중인 경우 (file:// 프로토콜)
+            if (currentProtocol === 'file:') {
+                shouldRedirect = true;
+            } 
+            // B. 도메인이 허용된 도메인과 일치하지 않는 경우
+            else if (currentHostname !== allowedHostname) {
+                // 'localhost'나 '127.0.0.1'에서의 개발을 허용하고 싶다면 이 조건을 수정해야 합니다.
+                shouldRedirect = true;
+            }
+            
+            // 5. 리디렉션 실행
+            if (shouldRedirect) {
+                // 현재 페이지를 redirectURL로 강제로 이동
+                window.location.replace(redirectURL); 
+                // window.location.replace()를 사용하면 뒤로가기 버튼으로 이전 로컬 페이지로 돌아갈 수 없습니다.
+            }
+        })();
+
+        // 리디렉션이 발생하지 않은 경우에만 아래에 핵심 오디오북 스크립트 코드가 실행됩니다.
+        // 예를 들어: initializeAudiobookService();
+        </script>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image" href="favicon.png">
+    <script src="https://cdn.jsdelivr.net/npm/nosleep.js@1/dist/NoSleep.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3474389046240414" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    </head>
+<body>
+    <div id="full-screen-drop-area">파일을 여기에 드롭하세요</div>
+
+    <header>
+        <h1>책 읽어주는 가을이</h1>        
+    </header>    
+    <div class="container">
+        <div id="left_panel">
+            <div class="file-list-section">
+                <h2>List</h2>
+                <input type="file" id="file-input" accept="text/plain,image/*" multiple style="display: none;">
+                <ul id="file-list"></ul>
+            </div>
+
+            <div class="control-section">
+                <div id="controler_wrap">
+                    
+                    <div id="voice-control-wrap">
+                        <label for="voice-select">목소리 선택:</label>
+                        <select id="voice-select"></select>
+                    </div>
+                    
+                    <div id="rate-control-wrap">
+                        <label for="rate-slider">재생 속도 :</label>
+                        <span id="rate-display">1.2</span>
+                        <input type="range" id="rate-slider" min="0.5" max="2" step="0.1" value="1.2">
+                    </div>
+
+                    <div class="playback-controls"> 
+                        <button id="play-pause-btn">▶️</button>
+                        <button id="stop-btn">⏹️</button>
+                        <button id="prev-file-btn">⏮️</button>
+                        <button id="next-file-btn">⏭️</button>
+                        <button><label><input type="checkbox" id="sequential-read-checkbox" checked><br>정주행</label></button>
+                        <button id="clear-all-files-btn">전체<br>삭제</button>
+                    </div>
+                </div>
+                <div id="sponser">
+                <a href="https://qr.kakaopay.com/Ej7rBokl1">
+                    <img src="https://tistory1.daumcdn.net/tistory/2714570/skin/images/mywalletqr.png" title="카메라 앱으로 QR코드를 비춰보세요">
+                    <span>제작자 후원(커피한잔 사주세요~*)</span>
+                </a>
+                </div>
+            </div>
+            <div id="url_iframe_panel_mobile" class="url-iframe-panel mobile-only">
+                <h3>Browsing</h3>
+                <div class="url-input-container">
+                    <input type="text" id="url-input-mobile" placeholder="URL을 입력하세요 ex.booktoki469.com">
+                    <button id="load-url-btn-mobile">Load</button>
+                </div>
+                <iframe id="content-frame-mobile" name="content-frame-mobile" src="about:blank" title="로드된 웹페이지"></iframe>
+            </div>
+
+            <div class="text-viewer-section">
+                <h2>텍스트 뷰어</h2>
+                <div class="mobile-only mobile-buttons">
+                    <button id="mobile-file-upload-btn">파일첨부</button>
+                    <button id="mobile-load-voice-btn">음성로드</button>
+                </div>
+                <div id="text-viewer" contenteditable="true">
+                    <p>텍스트, 이미지 파일을 드래그하여 첨부하거나 텍스트/URL을 붙여넣어 오디오북으로 변환하세요! 모바일에선 파일첨부, 음성로드 버튼을 활용해주세요</p>
+                </div>
+            </div>
+        </div>
+        <div id="right_button">▶  ◀</div>        
+        <div id="right_panel" class="url-iframe-panel desktop-only">
+            <h3>Browsing</h3>
+            <div class="url-input-container">
+                <input type="text" id="url-input-desktop" placeholder="URL을 입력하세요 ex. https://booktoki469.com">
+                <button id="load-url-btn-desktop">Load</button>
+            </div>
+            <iframe id="content-frame-desktop" name="content-frame-desktop" src="about:blank" title="로드된 웹페이지"></iframe>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

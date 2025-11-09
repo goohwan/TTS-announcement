@@ -76,7 +76,7 @@ let $sequentialReadCheckbox, $clearAllFilesBtn;
 let $urlInputMobile, $loadUrlBtnMobile, $contentFrameMobile;
 let $urlInputDesktop, $loadUrlBtnDesktop, $contentFrameDesktop;
 
-const INITIAL_TEXT_VIEWER_TEXT = '텍스트, 이미지 파일을 드래그하여 첨부하거나 텍스트/URL을 붙여넣어 오디오북으로 변환하세요! 모바일에선 파일첨부, 음성로드 버튼을 활용해주세요';
+const INITIAL_TEXT_VIEWER_TEXT = '텍스트 파일을 드래그하여 첨부하거나 텍스트 붙여넣기 후 음성으로 변환하세요! 모바일에선 파일첨부, 음성로드 버튼을 활용해주세요';
 const INITIAL_TEXT_VIEWER_CONTENT = `<p>${INITIAL_TEXT_VIEWER_TEXT}</p>`;
 
 // --- 초기화 ---

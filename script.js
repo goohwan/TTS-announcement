@@ -139,10 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
     $textViewer.addEventListener('focus', clearInitialTextViewerContent);
     $textViewer.addEventListener('focusout', restoreInitialTextViewerContent);
 
-    $sequentialReadCheckbox.addEventListener('change', (e) => {
-        isSequential = e.target.checked;
-        saveBookmark();
-    });
 
     $clearAllFilesBtn.addEventListener('click', clearAllFiles);
     $fileList.addEventListener('click', handleFileListItemClick);

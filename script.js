@@ -120,8 +120,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $('#play-pause-btn').addEventListener('click', togglePlayPause);
     $('#stop-btn').addEventListener('click', stopReading);
-    $('#next-file-btn').addEventListener('click', () => changeFile(currentFileIndex + 1));
-    $('#prev-file-btn').addEventListener('click', () => changeFile(currentFileIndex - 1));
+    $('#beginning-btn').addEventListener('click', () => changeFile(currentFileIndex + 1));
+    $('#ending-btn').addEventListener('click', () => changeFile(currentFileIndex - 1));
 
     $rateSlider.addEventListener('input', updateRateDisplay);
     $rateSlider.addEventListener('change', () => saveBookmark());

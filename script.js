@@ -139,8 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
     $textViewer.addEventListener('focus', clearInitialTextViewerContent);
     $textViewer.addEventListener('focusout', restoreInitialTextViewerContent);
 
-
-    $clearAllFilesBtn.addEventListener('click', clearAllFiles);
     $fileList.addEventListener('click', handleFileListItemClick);
 
     setupFileListSortable();

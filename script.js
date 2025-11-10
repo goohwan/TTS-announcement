@@ -1265,3 +1265,42 @@ function loadBookmark() {
         }
     }
 }
+
+
+// DOMContentLoaded 이벤트는 HTML 구조가 완전히 로드된 후 실행됩니다.
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. 변경할 <a> 태그 요소를 가져옵니다. (ID가 'sponser-link'로 잘 추가되었는지 확인하세요!)
+    const sponserLink = document.getElementById('sponser-link');
+    
+    // 만약 요소를 찾지 못하면(sponserLink === null) 코드를 실행하지 않도록 예외 처리
+    if (!sponserLink) {
+        console.error("ID가 'sponser-link'인 요소를 찾을 수 없습니다.");
+        return;
+    }
+
+    // 2. 미디어 쿼리 조건 (최소 너비 451px)을 설정합니다.
+    const mediaQuery = window.matchMedia('(min-width: 451px)');
+    
+    // 3. 변경할 새로운 href 값입니다.
+    const newHref = 'https://buymeacoffee.com/goohwan';
+    
+    // 4. 기본 href 값 (451px 미만일 때)입니다.
+    const defaultHref = 'https://qr.kakaopay.com/Ej7rBokl1';
+
+    // 5. 화면 너비가 변경될 때 실행될 함수를 정의합니다.
+    function handleWidthChange(e) {
+        if (e.matches) {
+            // 조건(min-width: 451px)을 만족하는 경우 (451px 이상)
+            sponserLink.setAttribute('href', newHref);
+        } else {
+            // 조건을 만족하지 않는 경우 (451px 미만)
+            sponserLink.setAttribute('href', defaultHref);
+        }
+    }
+
+    // 6. 리스너(Listener)를 추가하여 화면 너비 변경을 감지합니다.
+    mediaQuery.addListener(handleWidthChange);
+
+    // 7. 페이지 로드 시 현재 화면 너비를 확인하여 href를 설정합니다.
+    handleWidthChange(mediaQuery);
+});

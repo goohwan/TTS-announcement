@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
         playChime("/sounds/begin_chime.mp3"); // 시작 차임벨 재생
     });
     $('#ending-btn').addEventListener('click', () => {
-        playChime("/sounds/end-chime.mp3"); // 종료 차임벨 재생
+        playChime("/sounds/end_chime.mp3"); // 종료 차임벨 재생
     });
     // -----------------------------------------------
 

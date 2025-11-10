@@ -38,7 +38,16 @@ if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
 return gk_fileData[filename] || "";
 }
 // --------------------------------------------------
-
+// 사운드 재생 유틸리티 함수 추가
+function playChime(soundPath) {
+    try {
+        // 새 Audio 객체를 생성하고 바로 재생합니다.
+        const chime = new Audio(soundPath);
+        chime.play().catch(e => console.warn("Audio playback failed (browser policy or user interaction needed):", e));
+    } catch (e) {
+        console.error("Failed to create or play sound:", soundPath, e);
+    }
+}
 
 // --- 전역 변수 설정 ---
 const MAX_FILES = 50; // 파일 첨부 최대 개수 50개
@@ -120,8 +129,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $('#play-pause-btn').addEventListener('click', togglePlayPause);
     $('#stop-btn').addEventListener('click', stopReading);
-    $('#beginning-btn').addEventListener('click', () => changeFile(currentFileIndex + 1));
-    $('#ending-btn').addEventListener('click', () => changeFile(currentFileIndex - 1));
+
+    // 사용자의 요청에 따라 수정된 부분: 사운드 재생 기능 추가
+    $('#beginning-btn').addEventListener('click', () => {
+        playChime("/sounds/begin_chime.mp3"); // 시작 차임벨 재생
+    });
+    $('#ending-btn').addEventListener('click', () => {
+        playChime("/sounds/end-chime.mp3"); // 종료 차임벨 재생
+    });
+    // -----------------------------------------------
 
     $rateSlider.addEventListener('input', updateRateDisplay);
     $rateSlider.addEventListener('change', () => saveBookmark());

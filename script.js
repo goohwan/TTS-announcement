@@ -1270,11 +1270,11 @@ function loadBookmark() {
 // DOMContentLoaded 이벤트는 HTML 구조가 완전히 로드된 후 실행됩니다.
 document.addEventListener('DOMContentLoaded', function() {
     // 1. 변경할 <a> 태그 요소를 가져옵니다. (ID가 'sponser-link'로 잘 추가되었는지 확인하세요!)
-    const sponserLink = document.getElementById('sponser-link');
-    
+    const sponserLink = document.getElementById('sponser-Link');
+        
     // 만약 요소를 찾지 못하면(sponserLink === null) 코드를 실행하지 않도록 예외 처리
     if (!sponserLink) {
-        console.error("ID가 'sponser-link'인 요소를 찾을 수 없습니다.");
+        console.error("ID가 'sponserlink' 요소를 찾을 수 없습니다.");
         return;
     }
 
@@ -1299,7 +1299,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 6. 리스너(Listener)를 추가하여 화면 너비 변경을 감지합니다.
-    mediaQuery.addListener(handleWidthChange);
+    mediaQuery.addEventListener('change', handleWidthChange); // ✅ 권장
 
     // 7. 페이지 로드 시 현재 화면 너비를 확인하여 href를 설정합니다.
     handleWidthChange(mediaQuery);

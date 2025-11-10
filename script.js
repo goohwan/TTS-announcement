@@ -919,7 +919,7 @@ function stopReading() {
 
 function changeFile(newIndex) {
     if (newIndex < 0 || newIndex >= filesData.length) {
-        alert("더 이상 읽을 파일이 없습니다.");
+        console.log("더 이상 읽을 파일이 없습니다.");
         stopReading();
         currentFileIndex = -1;
         renderTextViewer(-1);
